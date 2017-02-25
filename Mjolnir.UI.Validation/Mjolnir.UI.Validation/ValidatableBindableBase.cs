@@ -26,7 +26,7 @@ namespace Mjolnir.UI.Validation
 
         #endregion
 
-        public ValidatableBindableBase(bool isValidationEnabled = true)
+        public ValidatableBindableBase(bool isValidationEnabled = false)
         {
             IsValidationEnabled = isValidationEnabled;
         }
@@ -79,8 +79,7 @@ namespace Mjolnir.UI.Validation
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             var result = false;
-
-
+            
             try
             {
                 storage = value;
@@ -91,9 +90,8 @@ namespace Mjolnir.UI.Validation
                 result = false;
             }
 
-
-
-            if (result && !string.IsNullOrEmpty(propertyName))
+            
+            if (result == true && !string.IsNullOrEmpty(propertyName))
             {
                 if (IsValidationEnabled)
                 {
@@ -189,11 +187,7 @@ namespace Mjolnir.UI.Validation
 
         private void OnPropertyChanged(string propertyName)
         {
-            var eventHandler = PropertyChanged;
-            if (eventHandler != null)
-            {
-                eventHandler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
