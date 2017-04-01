@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -22,6 +23,7 @@ namespace Mjolnir.UI.Validation
 
         #region Properties
 
+        [JsonIgnore]
         public bool IsValidationEnabled { get; set; }
 
         #endregion
@@ -30,7 +32,7 @@ namespace Mjolnir.UI.Validation
         {
             IsValidationEnabled = isValidationEnabled;
         }
-
+        
         public bool ValidateProperties()
         {
             _errors.Clear();
@@ -225,6 +227,7 @@ namespace Mjolnir.UI.Validation
             else return null;
         }
 
+        [JsonIgnore]
         public bool HasErrors
         {
             get
